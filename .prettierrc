@@ -1,0 +1,30 @@
+{
+  "arrowParens": "always",
+  "semi": false,
+  "tabWidth": 2,
+  "endOfLine": "auto",
+  "useTabs": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^react\\w*|prop-types",
+    "^react-router\\w*",
+    "<ASSETS>",
+    "<THIRD_PARTY_MODULES>",
+    "<CURRENT_MODULE_SPECIFIC_COMPONENTS>",
+    "<CURRENT_MODULE>",
+    "^config/(.*)$",
+    "^src/utils/(.*)$",
+    "^src/hooks/(.*)$",
+    "^src/api/(.*)$",
+    "^src/(components/|components|layouts)",
+    "^src/common/hooks/(.*)$",
+    "^[./]|^src/\\w+"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true
+}

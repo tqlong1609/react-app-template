@@ -1,0 +1,30 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all HTML files:
+**/*.html
+
+# Ignore build folders
+/.next
+/out
+
+# Ignore node_modules
+/node_modules
+
+# Ignore public folder
+/public
+
+# Ignore coverage reports
+/coverage
+
+# Ignore cached files
+/.cache
+
+# Ignore TypeScript build output
+/.next
+
+# Ignore Docker and other deployment files
+/docker
+/.dockerignore
+/k8s
