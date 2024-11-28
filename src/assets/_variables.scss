@@ -1,0 +1,61 @@
+$font-size-ratio: 1.2;
+
+// bootstrapの変数を上書き
+$font-size-base: $font-size-ratio * 1rem;
+$primary: #00947e;
+$input-focus-border-color: $primary;
+
+$font-noto-sans-jp: "Noto Sans JP", system-ui;
+
+// 独自変数
+$text-size-1: $font-size-ratio * 1.5rem;
+$text-size-2: $font-size-ratio * 1.25rem;
+$text-size-3: $font-size-ratio * 1.125rem;
+$text-size-4: $font-size-ratio * 1rem;
+$text-size-5: $font-size-ratio * 0.875rem;
+$text-size-6: $font-size-ratio * 0.75rem;
+$text-size-7: $font-size-ratio * 0.6rem;
+
+$radius-rounded: 9999px;
+$box-shadow: 1px 1px 3px rgba($black, 0.4);
+$postural-color: #c89a6e;
+$postural-color-light: #ffefe0;
+// posturalScore.tsでも使用しているので注意
+$postural-border-blue: #2180c4;
+$postural-border-yellow: #ffcc58;
+$postural-border-red: #cb2c02;
+$diagnosis-color: #be623d;
+$diagnosis-color-dark: #985d65;
+$diagnosis-blue: rgb(243 255 253);
+
+// for onward
+$custom-onward-black: #2b1e1c;
+$custom-onward-green: #13605a;
+$custom-onward-danger: #b70000;
+$custom-onward-danger-light: #ff0000;
+$custom-onward-green-hover: #11554f;
+$custom-onward-danger-hover: #9f2604;
+$custom-onward-text: #000;
+$custom-onward-text-tag-gray: #757575;
+$custom-onward-tag-gray: #eff1f3;
+$custom-onward-text-title: #686868;
+$custom-onward-text-description: #2b2b2b;
+$custom-onward-btn-background: #d8d8d8;
+$custom-onward-input: #d8d8d8;
+$custom-onward-input-placeholder: #b5b5b5;
+
+// for onward-personal-style
+$onward-personal-style-brown-dark: #a49284;
+$onward-personal-style-brown-light: #cdc4bc;
+$onward-personal-style-brown-lightest: #f6f2f1;
+
+// for hankyu-hanshin
+$hankyu-hanshin-dark: #a57278;
+$hankyu-hanshin-light: #ede3e4;
+$hankyu-hanshin-gray: #f0f0f0;
+$hankyu-hanshin-gray-light: #f4f6f9;
+$hankyu-hanshin-gray-dark: #6d6d6d;
+$hankyu-hanshin-gray-light-dark: #b8b8b8;
+$hankyu-hanshin-disabled-text: #ffffff;
+$hankyu-hanshin-disabled-background: #b8b8b8;
+$hankyu-hanshin-text: #2b2b2b;

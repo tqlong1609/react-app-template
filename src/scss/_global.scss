@@ -1,0 +1,30 @@
+// document styles
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: $body-font;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  // background-color: $body-color;
+}
+
+.main {
+  background-color: $white;
+}
+
+ul {
+  list-style: none;
+}
+
+.text-theme {
+  color: $theme-color;
+}
+
+.bg-theme {
+  background-color: $theme-color;
+}

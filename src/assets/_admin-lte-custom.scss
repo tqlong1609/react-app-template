@@ -1,0 +1,91 @@
+// adminlte内部でbootstrapを読んでいる
+// pathは通っておらず、名前解決エラーがでるため
+// あえて、このアプリケーションでBootstrapをimportして直接使用している
+
+/*!
+ *   AdminLTE v3.2.0
+ *   Author: Colorlib
+ *   Website: AdminLTE.io <https://adminlte.io>
+ *   License: Open source - MIT <https://opensource.org/licenses/MIT>
+ */
+
+// Bootstrap
+// ---------------------------------------------------
+
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.wrapper .content-wrapper {
+  min-height: 100vh;
+}
+
+.main-sidebar {
+  display: flex;
+  flex-flow: column;
+}
+
+.brand-link {
+  line-height: 3;
+}
+
+.brand-link .brand-image-xs {
+  max-height: 50px;
+  top: 22px;
+}
+
+.brand-link .brand-image-xl {
+  width: 40px;
+  top: 20px;
+  left: 17px;
+  max-height: 40px;
+}
+
+.user-panel .image {
+  display: flex;
+  align-items: center;
+}
+
+.main-sidebar {
+  overflow: hidden;
+}
+
+.sidebar-jp-text {
+  word-break: keep-all;
+  white-space: wrap;
+}
+.navbar-nav {
+  position: absolute;
+  left: 10px;
+}
+
+.card-title {
+  font-size: $text-size-3;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.content-header h1 {
+  font-size: $font-size-ratio * 1.8rem;
+}
+
+.btn {
+  padding: $font-size-ratio * 0.3rem $font-size-ratio * 1.2rem;
+}
+
+.badge {
+  font-weight: normal;
+}
+
+.badge-pill {
+  padding-right: 1em;
+  padding-left: 1em;
+}
