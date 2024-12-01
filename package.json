@@ -13,11 +13,13 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@tanstack/query-core": "^5.51.21",
     "@tanstack/react-query": "^5.51.23",
-    "admin-lte": "^3.2",
+    "admin-lte": "3.2.0",
+    "aws-amplify": "^5.0.7",
     "axios": "^1.7.4",
-    "bootstrap": "^5.3.3",
+    "bootstrap": "^4.6.1",
     "bootstrap-icons": "^1.11.3",
     "dayjs": "^1.11.13",
     "next": "14.2.5",
@@ -25,6 +27,7 @@
     "pino-pretty": "^13.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.53.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -1,14 +1,23 @@
 // import '@/assets/style.scss'
 import BootstrapClient from '@/components/BootstrapClient'
+import Providers from '@/providers'
 // import './globals.css';
-import ReactQueryProvider from '@/providers/ReactQueryProvider'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import type { Metadata } from 'next'
 import { Noto_Sans_JP } from 'next/font/google'
 
-import '../scss/style.scss'
-import '/public/dist-adminlte/css/adminlte.min.css'
-import '/public/plugins/fontawesome-free/css/all.min.css'
+import '@/assets/style.scss'
+// import '/public/dist-adminlte/css/adminlte.min.css'
+// import '/public/plugins/fontawesome-free/css/all.min.css'
+
+/*
+      - MBD_NODE_ENV=development
+      - API_URL=https://development.hbs.symbol-develop.xyz
+      - COGNITO_USER_POOL_ID=ap-northeast-1_KXEQDxgjd
+      - COGNITO_USER_POOL_WEB_CLIENT_ID=2gmu1i5mvhujopsc0k420ba8h5
+      - COGNITO_REDIRECT_SIGNIN=http://localhost:3000/member/dashboard/
+      - COGNITO_REDIRECT_SIGNOUT=http://localhost:3000/member/dashboard/
+*/
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
@@ -31,9 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={notoSansJP.className}>
-        <ReactQueryProvider>
+        <Providers>
           <div>{children}</div>
-        </ReactQueryProvider>
+        </Providers>
         <BootstrapClient />
       </body>
     </html>

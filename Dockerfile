@@ -54,11 +54,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 USER nextjs
 
 # Expose ports (for orchestrators and dynamic reverse proxies)
-EXPOSE 3009
-ENV PORT 3009
+EXPOSE 3001
+ENV PORT 3001
 ENV HOSTNAME "0.0.0.0"
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "wget", "-q0", "http://localhost:3009/health" ]
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "wget", "-q0", "http://localhost:3001/health" ]
 
 # Run the nextjs app
 CMD ["node", "server.js"]
