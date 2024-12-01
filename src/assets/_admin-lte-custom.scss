@@ -11,7 +11,23 @@
 
 // Bootstrap
 // ---------------------------------------------------
+@import "@/assets/variables";
+@import "bootstrap/scss/bootstrap";
 
+// Variables and Mixins
+// ---------------------------------------------------
+@import "admin-lte/build/scss/variables";
+@import "admin-lte/build/scss/variables-alt";
+// sassのエラーが出るため修正
+// https://github.com/ColorlibHQ/AdminLTE/issues/4586
+@import "@/assets/admin-lte/mixins";
+
+@import "admin-lte/build/scss/parts/core";
+@import "admin-lte/build/scss/parts/components";
+@import "admin-lte/build/scss/parts/extra-components";
+@import "admin-lte/build/scss/parts/pages";
+@import "admin-lte/build/scss/parts/plugins";
+@import "admin-lte/build/scss/parts/miscellaneous";
 
 ul {
   list-style: none;
@@ -19,8 +35,7 @@ ul {
   padding: 0;
 }
 
-.table th,
-.table td {
+.table th, .table td {
   vertical-align: middle;
 }
 
@@ -62,7 +77,7 @@ ul {
   word-break: keep-all;
   white-space: wrap;
 }
-.navbar-nav {
+.navbar-nav  {
   position: absolute;
   left: 10px;
 }
@@ -73,7 +88,7 @@ ul {
   text-decoration: underline;
 }
 
-.content-header h1 {
+.content-header h1{
   font-size: $font-size-ratio * 1.8rem;
 }
 

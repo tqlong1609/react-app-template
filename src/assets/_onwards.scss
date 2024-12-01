@@ -116,7 +116,7 @@
   &.tab-first {
     .onward-area__card {
       min-height: 76vh;
-      overflow: hidden;
+      overflow-y: auto;
       @media (max-width: 1180px) and (orientation: landscape) {
         min-height: 74vh;
       }

@@ -1,9 +1,13 @@
+@import "bootstrap/scss/functions";
+
 $font-size-ratio: 1.2;
 
 // bootstrapの変数を上書き
 $font-size-base: $font-size-ratio * 1rem;
 $primary: #00947e;
 $input-focus-border-color: $primary;
+
+@import "admin-lte/build/scss/bootstrap-variables";
 
 $font-noto-sans-jp: "Noto Sans JP", system-ui;
 

@@ -2,15 +2,13 @@
 import BootstrapClient from '@/components/BootstrapClient'
 import Providers from '@/providers'
 // import './globals.css';
-import ReactQueryProvider from '@/providers/ReactQueryProvider'
-import { Amplify } from 'aws-amplify'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import type { Metadata } from 'next'
 import { Noto_Sans_JP } from 'next/font/google'
 
-import '../scss/style.scss'
-import '/public/dist-adminlte/css/adminlte.min.css'
-import '/public/plugins/fontawesome-free/css/all.min.css'
+import '@/assets/style.scss'
+// import '/public/dist-adminlte/css/adminlte.min.css'
+// import '/public/plugins/fontawesome-free/css/all.min.css'
 
 /*
       - MBD_NODE_ENV=development
