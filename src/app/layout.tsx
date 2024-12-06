@@ -1,12 +1,13 @@
 // import '@/assets/style.scss'
+import '@/assets/style.scss'
 import BootstrapClient from '@/components/BootstrapClient'
 import Providers from '@/providers'
+import 'admin-lte/plugins/fontawesome-free/css/all.min.css'
 // import './globals.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import type { Metadata } from 'next'
 import { Noto_Sans_JP } from 'next/font/google'
 
-import '@/assets/style.scss'
 // import '/public/dist-adminlte/css/adminlte.min.css'
 // import '/public/plugins/fontawesome-free/css/all.min.css'
 
@@ -39,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
         />
       </head>
-      <body className={notoSansJP.className}>
+      <body className={`${notoSansJP.className} sidebar-mini layout-fixed sidebar-collapse`}>
         <Providers>
           <div>{children}</div>
         </Providers>
