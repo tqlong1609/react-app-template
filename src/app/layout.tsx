@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
         />
       </head>
-      <body className={notoSansJP.className}>
+      <body className={`${notoSansJP.className} sidebar-mini layout-fixed sidebar-collapse`}>
         <Providers>
           <div>{children}</div>
         </Providers>

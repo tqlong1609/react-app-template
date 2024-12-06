@@ -2,50 +2,21 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
 
+import MainSideBar from '@/components/MainSideBar'
 import { useQuery } from '@tanstack/react-query'
-import { CognitoUser } from 'amazon-cognito-identity-js'
 import { Auth } from 'aws-amplify'
 import camelcaseKeys from 'camelcase-keys'
 import { startOfDay, subDays } from 'date-fns'
 import { formatToTimeZone } from 'date-fns-timezone'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
+const STORAGE_KEY = 'dashboard_state'
 const TIME_ZONE_TOKYO = 'Asia/Tokyo'
 
 const formatDatetime = (dateTime: string): string => {
   const FORMAT = 'YYYY/MM/DD HH:mm:ss'
   return formatToTimeZone(dateTime, FORMAT, { timeZone: TIME_ZONE_TOKYO })
-}
-
-type PartnerAttributes = {
-  id: string
-  logoUrl: string
-  name: string
-}
-
-const getUseRuntimeConfig = () => {
-  return process.env.NEXT_PUBLIC_API_URL
-}
-
-const url = getUseRuntimeConfig()
-
-const usePartnerAttributes = (token: string | null) => {
-  return useQuery<PartnerAttributes, Error>({
-    queryKey: ['partnerAttributes', token],
-    queryFn: async () => {
-      const response = await fetch(`${url}/v2/partner/attributes`, {
-        headers: {
-          Authorization: token || ''
-        }
-      })
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
-      const data = await response.json()
-      return camelcaseKeys(data, { deep: true })
-    },
-    enabled: !!token
-  })
 }
 
 type Body = {
@@ -61,7 +32,11 @@ type Body = {
   userId: string
 }
 
-type BodyParams = { term: string; token: string | null }
+type PartnerAttributes = {
+  id: string
+  logoUrl: string
+  name: string
+}
 
 type BodiesInfo = {
   pageInfo: {
@@ -72,111 +47,108 @@ type BodiesInfo = {
   bodies: Body[]
 }
 
-const useBodies = ({ term, token }: BodyParams) => {
-  return useQuery<BodiesInfo, Error>({
-    queryKey: ['bodies', { term, token }],
-    queryFn: async () => {
-      const toAt = new Date().toISOString()
-      const fromAt =
-        term === '1'
-          ? startOfDay(new Date()).toISOString()
-          : subDays(new Date(), Number(term)).toISOString()
-      const queryParams = new URLSearchParams({
-        page: '1',
-        per_page: '999',
-        order: 'new',
-        from_at: fromAt,
-        to_at: toAt
-      }).toString()
-
-      const response = await fetch(`${url}/v2/partner/bodies?${queryParams}`, {
-        method: 'GET',
-        headers: {
-          Authorization: token || ''
-        }
-      })
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
-
-      const data = await response.json()
-      return camelcaseKeys(data, { deep: true })
-    },
-    enabled: !!token && !!term
-  })
+const getUseRuntimeConfig = () => {
+  return process.env.NEXT_PUBLIC_API_URL
 }
 
-const STORAGE_KEY = 'dashboard_state'
+const fetchBodies = async (token: string, term: string) => {
+  const url = getUseRuntimeConfig()
+  const fromAt =
+    term === '1'
+      ? startOfDay(new Date()).toISOString()
+      : subDays(new Date(), Number(term)).toISOString()
+
+  const toAt = new Date().toISOString()
+  const queryParams = new URLSearchParams({
+    page: '1',
+    per_page: '999',
+    order: 'new',
+    from_at: fromAt,
+    to_at: toAt
+  }).toString()
+  const response = await fetch(`${url}/v2/partner/bodies?${queryParams}`, {
+    headers: { Authorization: token },
+    method: 'GET'
+  })
+  if (!response.ok) {
+    throw new Error('Failed to fetch bodies')
+  }
+  const data = await response.json()
+  return camelcaseKeys(data, { deep: true })
+}
+
+const fetchPartnerAttributes = async (token: string) => {
+  const url = getUseRuntimeConfig()
+  const response = await fetch(`${url}/v2/partner/attributes`, {
+    headers: { Authorization: token }
+  })
+  if (!response.ok) {
+    throw new Error('Failed to fetch partner attributes')
+  }
+  const data = await response.json()
+  return camelcaseKeys(data, { deep: true })
+}
 
 const DashboardPage = () => {
-  const restoreState = () => {
-    const storedState = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '{}')
-    return {
-      dateValue: storedState.dateValue || '1',
-      searchText: storedState.searchText || ''
+  const router = useRouter()
+  const [term, setTerm] = useState('1')
+  const [searchText, setSearchText] = useState('')
+  const [token, setToken] = useState<string>('')
+
+  useEffect(() => {
+    const restoreState = () => {
+      const storedState = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '{}')
+      setTerm(storedState.dateValue || '1')
+      setSearchText(storedState.searchText || '')
     }
-  }
 
-  const [term, setTerm] = useState(restoreState().dateValue)
-  const [searchText, setSearchText] = useState(restoreState().searchText)
-  const [user, setUser] = useState<CognitoUser | null>(null)
-  const [token, setToken] = useState<string | null>(null)
+    restoreState()
 
-  const { data: partnerAttributesData, error: partnerAttributesError } = usePartnerAttributes(token)
-  const {
-    data,
-    error: bodyError,
-    isPending: bodiesPending
-  } = useBodies({
-    term,
-    token
+    // Get authentication token
+    Auth.currentAuthenticatedUser()
+      .then((user) => setToken(user.signInUserSession.accessToken.jwtToken))
+      .catch(() => router.push('/error'))
+  }, [router])
+
+  // Query for bodies data
+  const { data: bodiesData, isLoading: isBodiesLoading } = useQuery<BodiesInfo, Error>({
+    queryKey: ['bodies', { token, term }],
+    queryFn: () => fetchBodies(token, term),
+    enabled: !!token,
+    retry: false
   })
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const currentUser = await Auth.currentAuthenticatedUser()
-      setUser(currentUser)
-    }
-    fetchUser()
-  }, [])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (user) {
-        const session = user.getSignInUserSession()
-        if (session) {
-          const token = session.getAccessToken().getJwtToken()
-          setToken(token)
-        }
-      }
-    }
-    fetchData()
-  }, [user, term])
-
-  useEffect(() => {
-    if (partnerAttributesError || bodyError) {
-      const statusMessage = partnerAttributesError?.data?.msg || bodyError?.data?.msg
-      console.error({ statusCode: 500, statusMessage })
-    }
-  }, [partnerAttributesError, bodyError])
+  // Query for partner attributes
+  const { data: partnerAttributes, isLoading: isPartnerLoading } = useQuery<
+    PartnerAttributes,
+    Error
+  >({
+    queryKey: ['partnerAttributes', token],
+    queryFn: () => fetchPartnerAttributes(token),
+    enabled: !!token,
+    retry: false
+  })
 
   useEffect(() => {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ dateValue: term, searchText }))
   }, [term, searchText])
 
   const bodies = useMemo(() => {
-    if (!data) return []
-    if (data && searchText) {
-      return data.bodies.filter((body) => body.nickname.includes(searchText))
+    if (!bodiesData) return []
+    if (searchText) {
+      return bodiesData.bodies.filter((body) => body.nickname.includes(searchText))
     }
-    return data.bodies
-  }, [data, searchText])
+    return bodiesData.bodies
+  }, [bodiesData, searchText])
+
+  console.log('bodies', bodies)
+
+  const isLoading = isBodiesLoading || isPartnerLoading
 
   return (
     <div className='wrapper'>
       {/* <DashboardHeader /> */}
-      <div className='content-wrapper' style={{ marginLeft: '4.6rem' }}>
+      <div className='content-wrapper'>
         <section className='content'>
           <div className='content-header'>
             <h1>ダッシュボード</h1>
@@ -220,7 +192,7 @@ const DashboardPage = () => {
                       </div>
                     </div>
                   </div>
-                  {bodiesPending ? (
+                  {isLoading ? (
                     <div className='card-body table-responsive text-center'>
                       <div className='spinner-border' role='status'>
                         <span className='sr-only'>Loading...</span>
@@ -228,7 +200,7 @@ const DashboardPage = () => {
                     </div>
                   ) : (
                     <div className='card-body table-responsive p-0'>
-                      {data && data.bodies.length > 0 ? (
+                      {bodies.length > 0 ? (
                         <table className='table text-nowrap table-striped'>
                           <thead>
                             <tr>
@@ -269,7 +241,7 @@ const DashboardPage = () => {
           </div>
         </section>
       </div>
-      {/* <MainSidebar partnerAttributes={partnerAttributes} /> */}
+      <MainSideBar partnerAttributes={partnerAttributes} />
     </div>
   )
 }
