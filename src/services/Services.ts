@@ -45,7 +45,7 @@ export abstract class Services implements IServices {
 
   getCookie = (cookie: string | undefined): AxiosRequestConfig['headers'] => {
     return {
-      Cookie: `Authorization=${cookie}`,
+      Cookie: `Authorization=${cookie}`
     }
   }
 
@@ -60,7 +60,7 @@ export abstract class Services implements IServices {
       throw new Error(
         error.response
           ? error.response.data.error || error.response.data.message || error.response.statusText
-          : UNKNOWN_ERROR,
+          : UNKNOWN_ERROR
       )
     }
     throw new Error(UNKNOWN_ERROR)
@@ -75,7 +75,7 @@ export abstract class Services implements IServices {
     headers = {},
     signal,
     transformResponse,
-    isMockApi,
+    isMockApi
   }: {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE'
     url: string
@@ -95,7 +95,7 @@ export abstract class Services implements IServices {
         params,
         headers,
         signal,
-        withCredentials: true,
+        withCredentials: true
       })
       const cookie = response.headers['set-cookie']?.[0]
       const dataResponse = schema.safeParse(response.data)
@@ -105,13 +105,13 @@ export abstract class Services implements IServices {
           : dataResponse.data
         return {
           data: transformedData,
-          cookie: cookie,
+          cookie: cookie
         }
       } else {
         console.error('ERROR_ZOD', dataResponse.error)
         return {
           data: response.data,
-          cookie: cookie,
+          cookie: cookie
         }
       }
     } catch (error) {

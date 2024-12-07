@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useEffect } from 'react'
 
 const BootstrapClient: React.FC = () => {

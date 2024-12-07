@@ -2,7 +2,6 @@
 // Mixins: Animation
 //
 
-
 @keyframes flipInX {
   0% {
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -28,7 +27,6 @@
     transform: perspective(400px);
   }
 }
-
 
 @keyframes fadeIn {
   from {

@@ -58,7 +58,7 @@
   --color-ui-info-050: #eae1ff;
   --color-ui-info-030: #f4f0ff;
 
-  --color-ui-character-dark-mode-title: #ffffffE5;
+  --color-ui-character-dark-mode-title: #ffffffe5;
   --color-ui-grey-body: #f2f2f2;
   --neutral-grey-8-disabled-bg: #ebebeb;
 
@@ -121,6 +121,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }

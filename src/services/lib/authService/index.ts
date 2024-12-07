@@ -6,7 +6,7 @@ import {
   CheckLoginResponseSchema,
   checkLoginResponseSchema,
   logoutResponseSchema,
-  LogoutResponseSchema,
+  LogoutResponseSchema
 } from './schema'
 import { LoginParams } from './type'
 
@@ -28,7 +28,7 @@ export class AuthService extends Services implements IAuthService {
   logoutUrl: string = this.url + '/logout'
 
   login = async (
-    data: LoginParams,
+    data: LoginParams
   ): Promise<{ data: AuthenticationResponseSchema; cookie: string | undefined }> => {
     try {
       const response = await this.fetchApi<
@@ -39,7 +39,7 @@ export class AuthService extends Services implements IAuthService {
         method: 'POST',
         url: this.loginUrl,
         schema: authenticationResponseSchema,
-        data,
+        data
       })
 
       return response
@@ -57,7 +57,7 @@ export class AuthService extends Services implements IAuthService {
       >({
         method: 'GET',
         url: this.checkLoginUrl,
-        schema: checkLoginResponseSchema,
+        schema: checkLoginResponseSchema
       })
 
       return response.data
@@ -71,10 +71,10 @@ export class AuthService extends Services implements IAuthService {
       await this.fetchApi<void, typeof logoutResponseSchema, LogoutResponseSchema>({
         method: 'POST',
         url: this.logoutUrl,
-        schema: logoutResponseSchema,
+        schema: logoutResponseSchema
       })
       return {
-        message: 'Logout successful',
+        message: 'Logout successful'
       }
     } catch (error) {
       throw this.onError(error)

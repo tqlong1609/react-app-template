@@ -1,6 +1,5 @@
-@import "@/assets/_admin-lte-custom";
-@import "@/assets/_onwards";
-
+@import '@/assets/_admin-lte-custom';
+@import '@/assets/_onwards';
 
 .history-back {
   display: inline-block;
@@ -10,9 +9,8 @@
   margin-right: 10px;
 }
 
-
 @media (min-width: 992px) {
-  [class*="sidebar-collapse"] [class*="nav-link"] .text {
+  [class*='sidebar-collapse'] [class*='nav-link'] .text {
     margin-left: -10px;
     animation-name: fadeOut;
     animation-duration: 0.3s;
@@ -21,11 +19,11 @@
     width: 0;
     white-space: nowrap;
   }
- }
+}
 
- [class*="sidebar-collapse"] .open {
+[class*='sidebar-collapse'] .open {
   display: block;
 }
-[class*="sidebar-collapse"] .close {
+[class*='sidebar-collapse'] .close {
   display: none;
 }

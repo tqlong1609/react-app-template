@@ -1,8 +1,8 @@
-'use client'
-
 import React, { useEffect, useMemo, useState } from 'react'
 
+import { NextPageWithLayout } from '@/commons/types'
 import MainSideBar from '@/components/MainSideBar'
+import { MainLayout } from '@/layouts/mainLayout'
 import { useQuery } from '@tanstack/react-query'
 import { Auth } from 'aws-amplify'
 import camelcaseKeys from 'camelcase-keys'
@@ -89,7 +89,7 @@ const fetchPartnerAttributes = async (token: string) => {
   return camelcaseKeys(data, { deep: true })
 }
 
-const DashboardPage = () => {
+const DashboardPage: NextPageWithLayout = () => {
   const router = useRouter()
   const [term, setTerm] = useState('1')
   const [searchText, setSearchText] = useState('')
@@ -140,8 +140,6 @@ const DashboardPage = () => {
     }
     return bodiesData.bodies
   }, [bodiesData, searchText])
-
-  console.log('bodies', bodies)
 
   const isLoading = isBodiesLoading || isPartnerLoading
 
@@ -245,5 +243,7 @@ const DashboardPage = () => {
     </div>
   )
 }
+
+DashboardPage.getLayout = (page) => <MainLayout>{page}</MainLayout>
 
 export default DashboardPage

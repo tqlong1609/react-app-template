@@ -25,11 +25,11 @@
 
     &.card-outline-tabs {
       > .card-header {
-        a:hover{
+        a:hover {
           border-top: 3px solid $nav-tabs-border-color;
         }
         a.active,
-        a.active:hover{
+        a.active:hover {
           border-top: 3px solid $color;
         }
       }
@@ -41,7 +41,7 @@
   .card-#{$name}:not(.card-outline) {
     > .card-header {
       .btn-tool {
-        color: rgba(color-yiq($color), .8);
+        color: rgba(color-yiq($color), 0.8);
 
         &:hover {
           color: color-yiq($color);
@@ -79,4 +79,3 @@
     }
   }
 }
-

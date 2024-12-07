@@ -5,11 +5,11 @@ export const MenuContext = React.createContext<{
   menuContextHandler: (state: any) => void
 }>({
   menuContext: { drawerOpen: false },
-  menuContextHandler: (state: any) => {},
+  menuContextHandler: (state: any) => {}
 })
 
 const initialState = {
-  drawerOpen: false,
+  drawerOpen: false
 }
 
 export const MenuProvider = (props: any) => {
@@ -23,7 +23,7 @@ export const MenuProvider = (props: any) => {
     <MenuContext.Provider
       value={{
         menuContext: menuContext,
-        menuContextHandler: _menuContextHandler,
+        menuContextHandler: _menuContextHandler
       }}
     >
       {props.children}

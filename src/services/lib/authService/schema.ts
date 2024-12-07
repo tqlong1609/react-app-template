@@ -3,7 +3,7 @@ import z from 'zod'
 const authenticationResponseSchema = z.object({})
 
 const checkLoginResponseSchema = z.object({
-  userId: z.string(),
+  userId: z.string()
 })
 
 const logoutResponseSchema = z.object({})

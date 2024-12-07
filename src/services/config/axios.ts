@@ -10,12 +10,12 @@ function isHaveToMock() {
 }
 
 const MOCK_API = {
-  DELAY_RESPONSE_MOCK_API: 500,
+  DELAY_RESPONSE_MOCK_API: 500
 }
 const axiosInstance = axiosLib.create()
 const axiosMockInstance = axiosLib.create()
 const axiosMockAdapterInstance = new AxiosMockAdapter(axiosMockInstance, {
-  delayResponse: MOCK_API.DELAY_RESPONSE_MOCK_API,
+  delayResponse: MOCK_API.DELAY_RESPONSE_MOCK_API
 })
 
 const axios = (isMockApi = false) => {

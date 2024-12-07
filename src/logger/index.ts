@@ -16,13 +16,13 @@ const logger = (params: { type: 'error'; error: unknown } | { type: 'info'; resp
       url: error.config?.url,
       payload: {
         params: error.config?.params,
-        data: error.config?.data,
+        data: error.config?.data
       },
       responseTime: error.duration,
       response: {
         status: error.response?.status,
-        data: error.response?.data,
-      },
+        data: error.response?.data
+      }
     })
   } else {
     const response = params.response as AxiosResponse & { duration: number }
@@ -30,10 +30,10 @@ const logger = (params: { type: 'error'; error: unknown } | { type: 'info'; resp
       url: response.config.url,
       payload: {
         params: response.config.params,
-        data: response.config.data,
+        data: response.config.data
       },
       responseTime: response.duration,
-      response: response.data,
+      response: response.data
     })
   }
 }

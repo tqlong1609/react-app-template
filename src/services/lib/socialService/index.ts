@@ -9,7 +9,7 @@ import {
   GetUserInforResponse,
   GoogleGetUserInfoResponse,
   GoogleValidateTokenResponse,
-  ValidateTokenResponse,
+  ValidateTokenResponse
 } from './type'
 
 const unknownErrorMsg = 'Social service unknown error'
@@ -33,15 +33,15 @@ export class SocialService extends Services implements ISocialService {
         await getAxiosNormalInstance().get(
           googleApiConfig.validateTokenUrl + `?access_token=${token}`,
           {
-            signal: this.abortController.signal,
-          },
+            signal: this.abortController.signal
+          }
         )
       if (response.status === 200) {
         // Token is valid
         return {
           email: response.data.email,
           email_verified: response.data.email_verified,
-          expires_in: response.data.expires_in,
+          expires_in: response.data.expires_in
         }
       } else {
         throw new Error('Error validate token response.status not valid')
@@ -62,17 +62,17 @@ export class SocialService extends Services implements ISocialService {
         googleApiConfig.getUserInforUrl,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`
           },
-          signal: this.abortController.signal,
-        },
+          signal: this.abortController.signal
+        }
       )
       if (response.status === 200) {
         const userProfile = response.data
         return {
           email: userProfile.emailAddresses[0].value,
           firstName: userProfile.names[0].familyName,
-          lastName: userProfile.names[0].givenName,
+          lastName: userProfile.names[0].givenName
         }
       } else {
         throw new Error('Error fetching user profile')
@@ -98,8 +98,8 @@ export class SocialService extends Services implements ISocialService {
           `&redirect_uri=${params.redirectUri}` +
           `&code=${params.code}`,
         {
-          signal: this.abortController.signal,
-        },
+          signal: this.abortController.signal
+        }
       )
       if (response.status === 200) {
         return response.data
@@ -121,8 +121,8 @@ export class SocialService extends Services implements ISocialService {
       const response: AxiosResponse<GetUserInforResponse> = await getAxiosNormalInstance().get(
         facebookApiConfig.getFBUserInforUrl + `&access_token=${token}`,
         {
-          signal: this.abortController.signal,
-        },
+          signal: this.abortController.signal
+        }
       )
       if (response.status === 200) {
         // Token is valid

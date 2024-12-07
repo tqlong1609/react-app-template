@@ -2,9 +2,8 @@
 
 import React from 'react'
 
-import Image from 'next/image'
-
 import { useQuery } from '@tanstack/react-query'
+import Image from 'next/image'
 
 export default function ListUsers() {
   const [count, setCount] = React.useState(0)
@@ -32,7 +31,7 @@ export default function ListUsers() {
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr 1fr 1fr',
-            gap: 20,
+            gap: 20
           }}
         >
           {/* {data?.map((user) => (

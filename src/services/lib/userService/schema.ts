@@ -5,9 +5,9 @@ const getUsersResponseSchema = z.object({
     z.object({
       id: z.number(),
       name: z.string(),
-      email: z.string(),
-    }),
-  ),
+      email: z.string()
+    })
+  )
 })
 
 type GetUserParams = void

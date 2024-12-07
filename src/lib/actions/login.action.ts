@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const loginSchema = z.object({
   username: z.string().min(3),
-  password: z.string().min(6),
+  password: z.string().min(6)
 })
 
 export type LoginSchema = z.infer<typeof loginSchema>
@@ -17,7 +17,7 @@ export const login = async (prevState: FormState, formData: FormData) => {
   const validatedFields = loginSchema.safeParse(Object.fromEntries(formData))
   if (!validatedFields.success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: validatedFields.error.flatten().fieldErrors
     }
   }
 
@@ -25,7 +25,7 @@ export const login = async (prevState: FormState, formData: FormData) => {
 
   try {
     return {
-      message: 'Form data processed',
+      message: 'Form data processed'
     }
   } catch (err) {
     return { error: 'Invalid username or password' }

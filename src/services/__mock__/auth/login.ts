@@ -10,15 +10,15 @@ axiosMockAdapterInstance.onPost(new AuthService().loginUrl).reply((config) => {
   const data = JSON.parse(config.data) as LoginParams
   console.log('🚀 ~ axiosMockAdapterInstance.onPost ~ data123:', data)
   const isValidLogin = accounts.some(
-    (account) => account.email === data.email && account.password === data.password,
+    (account) => account.email === data.email && account.password === data.password
   )
   if (isValidLogin) {
     return [
       200,
       {
         message: 'Login success',
-        token: 'This is new login access token :>',
-      } as AuthenticationResponse,
+        token: 'This is new login access token :>'
+      } as AuthenticationResponse
     ]
   } else {
     return [
@@ -30,8 +30,8 @@ axiosMockAdapterInstance.onPost(new AuthService().loginUrl).reply((config) => {
        */
       401,
       {
-        message: 'Wrong email or password',
-      } as AuthenticationResponse,
+        message: 'Wrong email or password'
+      } as AuthenticationResponse
     ]
   }
 })

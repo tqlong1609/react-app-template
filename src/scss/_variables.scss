@@ -49,7 +49,7 @@ $breakpoints: (
   md: 768px,
   lg: 992px,
   xl: 1200px,
-  xxl: 1400px,
+  xxl: 1400px
 );
 
 $small-mobile: 'only screen and (max-width: 479px)';
@@ -60,7 +60,7 @@ $container-max-widths: (
   md: 720px,
   lg: 960px,
   xl: 1140px,
-  xxl: 1320px,
+  xxl: 1320px
 );
 
 //===== Spacing =====//
@@ -68,18 +68,18 @@ $spacer: 1rem;
 $spacers: (
   0: 0,
   1: (
-    $spacer * 0.25,
+    $spacer * 0.25
   ),
   2: (
-    $spacer * 0.5,
+    $spacer * 0.5
   ),
   3: $spacer,
   4: (
-    $spacer * 1.5,
+    $spacer * 1.5
   ),
   5: (
-    $spacer * 3,
-  ),
+    $spacer * 3
+  )
 );
 
 // @import 'bootstrap/scss/functions';

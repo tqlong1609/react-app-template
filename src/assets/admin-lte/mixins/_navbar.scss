@@ -11,13 +11,13 @@
     &.navbar-light {
       .form-control-navbar {
         &::placeholder {
-          color: rgba($gray-800, .8);
+          color: rgba($gray-800, 0.8);
         }
         &,
         + .input-group-append > .btn-navbar {
           background-color: darken($color, 4%);
           border-color: darken($color, 9%);
-          color: rgba($gray-800, .8);
+          color: rgba($gray-800, 0.8);
         }
 
         &:focus {
@@ -36,13 +36,13 @@
     &.navbar-dark {
       .form-control-navbar {
         &::placeholder {
-          color: rgba($white, .8);
+          color: rgba($white, 0.8);
         }
         &,
         + .input-group-append > .btn-navbar {
           background-color: lighten($color, 4%);
           border-color: lighten($color, 9%);
-          color: rgba($white, .8);
+          color: rgba($white, 0.8);
         }
 
         &:focus {

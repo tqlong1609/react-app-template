@@ -1,17 +1,12 @@
-'use client'
-
 import { FC, useEffect } from 'react'
 
-import '@/assets/admin-lte/js/sidebar'
+// import '@/assets/admin-lte/js/sidebar'
 import logoHeader from '@/assets/img/header/logo-large.svg'
 import logoSmall from '@/assets/img/header/logo-small.png'
-import { Auth } from 'aws-amplify'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import '../../assets/js/adminlte.min.js'
-import '../../assets/js/jquery.min.js'
 import styles from './MainSideBar.module.scss'
 
 type PartnerAttributes = {
@@ -27,10 +22,15 @@ interface MainSideBarProps {
 const MainSideBar: FC<MainSideBarProps> = ({ partnerAttributes }) => {
   const router = useRouter()
 
+  useEffect(() => {
+    // Initialize AdminLTE here if needed
+    // require('../../assets/js/adminlte.min.js')
+    // require('../../assets/js/jquery.min.js')
+    // require('../../assets/admin-lte/js/sidebar')
+  }, [])
+
   const signOut = async () => {
     try {
-      await Auth.signOut()
-      router.push('/guest/signin')
     } catch (error: any) {
       if (error.code === 'NetworkError') {
         window.alert('ネットワークエラーです。ネットワークの接続をご確認ください')

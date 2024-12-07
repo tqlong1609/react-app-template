@@ -26,7 +26,7 @@ export class UserService extends Services implements IUserService {
       >({
         method: 'GET',
         url: this.getUsersUrl,
-        schema: getUsersResponseSchema,
+        schema: getUsersResponseSchema
       })
 
       return response.data

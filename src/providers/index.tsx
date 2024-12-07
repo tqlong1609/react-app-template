@@ -1,6 +1,4 @@
-'use client'
-
-import { AuthProvider } from './AuthProvider'
+import { AuthProvider } from './auth'
 import { MenuProvider } from './MenuProvider'
 import ReactQueryProvider from './ReactQueryProvider'
 

@@ -1,5 +1,5 @@
-@import "@/assets/variables";
-@import "admin-lte/build/scss/variables";
+@import '@/assets/variables';
+@import 'admin-lte/build/scss/variables';
 
 .open {
   display: none;
@@ -9,11 +9,11 @@
   display: block;
 }
 
-:global([class*="sidebar-collapse"]) .open {
+:global([class*='sidebar-collapse']) .open {
   display: block;
 }
 
-:global([class*="sidebar-collapse"]) .close {
+:global([class*='sidebar-collapse']) .close {
   display: none;
 }
 
@@ -31,7 +31,10 @@
 .username,
 .text {
   color: $sidebar-dark-color;
-  transition: margin-left 0.3s linear, opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    margin-left 0.3s linear,
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 
   &:hover,
   &:focus {
@@ -48,7 +51,7 @@
 }
 
 @media (min-width: 992px) {
-  :global([class*="sidebar-collapse"]) :global([class*="nav-link"]) .text {
+  :global([class*='sidebar-collapse']) :global([class*='nav-link']) .text {
     margin-left: -10px;
     animation-name: fadeOut;
     animation-duration: 0.3s;

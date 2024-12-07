@@ -9,7 +9,7 @@ axiosMockAdapterInstance.onGet(new UserService().getUsersUrl).reply((config) => 
   return [
     200,
     {
-      users: usersData,
-    } as GetUsersResponse,
+      users: usersData
+    } as GetUsersResponse
   ]
 })

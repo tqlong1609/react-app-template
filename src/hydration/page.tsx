@@ -10,7 +10,7 @@ export default async function Hydation() {
   if (isAuth) {
     await queryClient.prefetchQuery({
       queryKey: ['hydrate-users'],
-      queryFn: () => {},
+      queryFn: () => {}
     })
   }
 
