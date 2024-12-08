@@ -8,7 +8,6 @@ import accountsData from './data/accounts.json'
 const accounts: Array<IAccount> = accountsData
 axiosMockAdapterInstance.onPost(new AuthService().loginUrl).reply((config) => {
   const data = JSON.parse(config.data) as LoginParams
-  console.log('🚀 ~ axiosMockAdapterInstance.onPost ~ data123:', data)
   const isValidLogin = accounts.some(
     (account) => account.email === data.email && account.password === data.password
   )

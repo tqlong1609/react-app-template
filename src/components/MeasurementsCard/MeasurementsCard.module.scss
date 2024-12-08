@@ -1,0 +1,20 @@
+@import '@/assets/variables';
+.card {
+  height: 100%;
+}
+.bodyText {
+  text-align: center;
+  background-color: $gray-200;
+  color: $white;
+  width: 100%;
+  padding: 20px;
+}
+.imageWrap {
+  height: 278px;
+}
+.image {
+  max-height: 278px;
+}
+.footer {
+  margin-top: -15px;
+}

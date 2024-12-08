@@ -1,11 +1,13 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 
-// import '@/assets/admin-lte/js/sidebar'
 import logoHeader from '@/assets/img/header/logo-large.svg'
 import logoSmall from '@/assets/img/header/logo-small.png'
+import { getUseRuntimeConfig } from '@/configs/env'
+import { useAuthContext } from '@/providers/auth'
+import { useQuery } from '@tanstack/react-query'
+import camelcaseKeys from 'camelcase-keys'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 import styles from './MainSideBar.module.scss'
 
@@ -15,19 +17,31 @@ type PartnerAttributes = {
   name: string
 }
 
-interface MainSideBarProps {
-  partnerAttributes?: PartnerAttributes | null
+interface MainSideBarProps {}
+
+const fetchPartnerAttributes = async (token: string) => {
+  const url = getUseRuntimeConfig()
+  const response = await fetch(`${url}/v2/partner/attributes`, {
+    headers: { Authorization: token }
+  })
+  if (!response.ok) {
+    throw new Error('Failed to fetch partner attributes')
+  }
+  const data = await response.json()
+  return camelcaseKeys(data, { deep: true })
 }
 
-const MainSideBar: FC<MainSideBarProps> = ({ partnerAttributes }) => {
-  const router = useRouter()
+const MainSideBar: FC<MainSideBarProps> = () => {
+  const { user } = useAuthContext()
+  const token = user?.token
 
-  useEffect(() => {
-    // Initialize AdminLTE here if needed
-    // require('../../assets/js/adminlte.min.js')
-    // require('../../assets/js/jquery.min.js')
-    // require('../../assets/admin-lte/js/sidebar')
-  }, [])
+  // Query for partner attributes
+  const { data: partnerAttributes } = useQuery<PartnerAttributes, Error>({
+    queryKey: ['partnerAttributes', token],
+    queryFn: () => fetchPartnerAttributes(token as string),
+    enabled: !!token,
+    retry: false
+  })
 
   const signOut = async () => {
     try {

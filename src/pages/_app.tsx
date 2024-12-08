@@ -21,6 +21,14 @@ const notoSansJP = Noto_Sans_JP({
 export default function MyApp({ Component, pageProps }: any) {
   const getLayout = Component.getLayout ?? ((page: any) => page)
   const isLoading = useRouteLoader()
+
+  // redirect home page when user go to / path
+  if (typeof window !== 'undefined') {
+    if (window.location.pathname === '/') {
+      window.location.pathname = '/member/dashboard'
+    }
+  }
+
   return (
     <>
       <Head>
@@ -30,8 +38,6 @@ export default function MyApp({ Component, pageProps }: any) {
           rel='stylesheet'
           href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
         />
-        {/* <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-        <script src='https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js'></script> */}
       </Head>
       <div className={notoSansJP.className}>
         <Providers>

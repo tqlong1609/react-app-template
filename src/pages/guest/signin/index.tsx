@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 import { NextPageWithLayout } from '@/commons/types'
 import GuestHeader from '@/components/GuestHeader'
+import { ROUTE_PATHS } from '@/configs/router'
 import { AuthLayout } from '@/layouts/auth'
 import { useAuthContext } from '@/providers/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -35,11 +36,10 @@ const LoginPage: NextPageWithLayout = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await signIn({ username: data.userId, password: data.password })
-      console.log('hehe123')
       if (router?.query?.continueUrl) {
         router.push(router?.query?.continueUrl.toString())
       } else {
-        router.push('/')
+        router.push(ROUTE_PATHS.DASHBOARD)
       }
     } catch (err) {
       console.error(err)

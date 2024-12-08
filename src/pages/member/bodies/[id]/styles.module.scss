@@ -1,0 +1,21 @@
+@import '@/assets/variables';
+@import 'bootstrap/scss/mixins';
+
+.cardBodyWrap {
+  padding: 1.25rem;
+}
+
+.groupButtonGender {
+  margin-top: 10px;
+}
+
+.buttonFemale {
+  margin-bottom: 40px;
+}
+
+@include media-breakpoint-up(lg) {
+  .measuementCardWrap {
+    height: 377px;
+    margin-bottom: 20px;
+  }
+}

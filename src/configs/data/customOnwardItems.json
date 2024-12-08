@@ -1,0 +1,25 @@
+{
+  "title": "ONWARD CROSSET SELECT",
+  "bodyType": {
+    "1": "athlete",
+    "2": "heavy-set",
+    "3": "overweight",
+    "4": "skinny",
+    "5": "average",
+    "6": "chubby"
+  },
+  "OCSBodyType": {
+    "A": "Athlete",
+    "B": "Skinny",
+    "C": "Average",
+    "D": "Heavy-set",
+    "E": "Chubby",
+    "F": "Overweight"
+  },
+  "OCSPersonalColor": {
+    "1": "Light Pink",
+    "2": "Natural Pink",
+    "3": "Light Yellow",
+    "4": "Natural Yellow"
+  }
+}

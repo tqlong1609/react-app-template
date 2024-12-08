@@ -1,31 +1,8 @@
-import dayjs, { Dayjs } from 'dayjs'
-import 'dayjs/locale/ja'
-import timezone from 'dayjs/plugin/timezone'
-import utc from 'dayjs/plugin/utc'
+import { formatToTimeZone } from 'date-fns-timezone'
 
-dayjs.locale('ja')
-dayjs.extend(utc)
-dayjs.extend(timezone)
+const TIME_ZONE_TOKYO = 'Asia/Tokyo'
 
-const DATE_FORMAT = 'YYYY-MM-DD'
-
-export const getDate = (date: string, format: string = DATE_FORMAT) => {
-  return dayjs(date, format)
+export const formatDatetime = (dateTime: string): string => {
+  const FORMAT = 'YYYY/MM/DD HH:mm:ss'
+  return formatToTimeZone(dateTime, FORMAT, { timeZone: TIME_ZONE_TOKYO })
 }
-
-export const formatDate = (date?: string | Dayjs, format: string = DATE_FORMAT) => {
-  if (typeof date === 'object') {
-    return date.format(format)
-  }
-  return dayjs(date).tz('Asia/Tokyo').format(format)
-}
-
-export const addDays = (date: string | Dayjs, days: number, format: string = DATE_FORMAT) => {
-  if (typeof date === 'string') {
-    return dayjs(date).add(days, 'day').format(format)
-  }
-  return date?.add(days, 'day').format(format) || ''
-}
-
-export type { Dayjs }
-export default dayjs

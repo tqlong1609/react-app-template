@@ -12,8 +12,6 @@ type FormState = {
 }
 
 export const login = async (prevState: FormState, formData: FormData) => {
-  console.log('🚀 ~ login ~ formData:', formData)
-
   const validatedFields = loginSchema.safeParse(Object.fromEntries(formData))
   if (!validatedFields.success) {
     return {

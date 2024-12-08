@@ -9,6 +9,14 @@ export type AuthState = {
   user: {
     id: string
     email: string
+    isOnwardUser: boolean
+    isOnwardPersonalStyleUser: boolean
+    isProfileGroupUser: boolean
+    isHankyuHanshinUser: boolean
+    isScanDataGroupUser: boolean
+    isMrb1User: boolean
+    isMrb2User: boolean
+    token: string
   } | null
   signIn: ({ username, password }: { username: string; password: string }) => Promise<any>
   signOut: () => Promise<any>
@@ -57,7 +65,6 @@ export const handlers: {
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
     const user = action.payload?.user
-
     return {
       ...state,
       isAuthenticated: true,
@@ -100,10 +107,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     try {
       const response = await Auth.currentAuthenticatedUser()
+
+      const cognitoGroups = response.signInUserSession.accessToken.payload['cognito:groups']
       const payload = {
         user: {
           id: response.username,
-          email: response.attributes.email
+          email: response.attributes.email,
+          isOnwardUser: cognitoGroups?.includes('mbd_layout:onward_custom'),
+          isOnwardPersonalStyleUser: cognitoGroups?.includes(
+            'mbd_layout:onward_personal_style_custom'
+          ),
+          isProfileGroupUser: cognitoGroups?.includes('mbd_layout:profile'),
+          isHankyuHanshinUser: cognitoGroups?.includes('mbd_layout:hanshin_hankyu_custom'),
+          isScanDataGroupUser: cognitoGroups?.includes('mbd_layout:scan_data'),
+          isMrb1User: cognitoGroups?.includes('mbd_layout:mrb1'),
+          isMrb2User: cognitoGroups?.includes('mbd_layout:mrb2'),
+          token: response.signInUserSession.accessToken.jwtToken
         }
       }
 
@@ -129,10 +148,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password
       })
 
+      const cognitoGroups = response.signInUserSession.accessToken.payload['cognito:groups']
       const payload = {
         user: {
           id: response.username,
-          email: response.attributes.email
+          email: response.attributes.email,
+          isOnwardUser: cognitoGroups?.includes('mbd_layout:onward_custom'),
+          isOnwardPersonalStyleUser: cognitoGroups?.includes(
+            'mbd_layout:onward_personal_style_custom'
+          ),
+          isProfileGroupUser: cognitoGroups?.includes('mbd_layout:profile'),
+          isHankyuHanshinUser: cognitoGroups?.includes('mbd_layout:hanshin_hankyu_custom'),
+          isScanDataGroupUser: cognitoGroups?.includes('mbd_layout:scan_data'),
+          isMrb1User: cognitoGroups?.includes('mbd_layout:mrb1'),
+          isMrb2User: cognitoGroups?.includes('mbd_layout:mrb2'),
+          token: response.signInUserSession.accessToken.jwtToken
         }
       }
 

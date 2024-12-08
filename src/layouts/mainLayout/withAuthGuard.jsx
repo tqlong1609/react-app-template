@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { ROUTE_PATHS } from '@/configs/router'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
 
@@ -24,7 +25,7 @@ export default function withAuthGuard(Component) {
       if (!isAuthenticated) {
         router
           .replace({
-            pathname: '/guest/signin',
+            pathname: ROUTE_PATHS.SIGNIN,
             query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
           })
           .catch(console.error)

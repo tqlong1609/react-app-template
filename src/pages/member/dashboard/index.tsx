@@ -1,23 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { NextPageWithLayout } from '@/commons/types'
-import MainSideBar from '@/components/MainSideBar'
+import { getUseRuntimeConfig } from '@/configs/env'
 import { MainLayout } from '@/layouts/mainLayout'
+import { useAuthContext } from '@/providers/auth'
+import { formatDatetime } from '@/utils/dayjs-format'
 import { useQuery } from '@tanstack/react-query'
-import { Auth } from 'aws-amplify'
 import camelcaseKeys from 'camelcase-keys'
 import { startOfDay, subDays } from 'date-fns'
-import { formatToTimeZone } from 'date-fns-timezone'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 const STORAGE_KEY = 'dashboard_state'
-const TIME_ZONE_TOKYO = 'Asia/Tokyo'
-
-const formatDatetime = (dateTime: string): string => {
-  const FORMAT = 'YYYY/MM/DD HH:mm:ss'
-  return formatToTimeZone(dateTime, FORMAT, { timeZone: TIME_ZONE_TOKYO })
-}
 
 type Body = {
   id: string
@@ -32,12 +26,6 @@ type Body = {
   userId: string
 }
 
-type PartnerAttributes = {
-  id: string
-  logoUrl: string
-  name: string
-}
-
 type BodiesInfo = {
   pageInfo: {
     totalPage: number
@@ -45,10 +33,6 @@ type BodiesInfo = {
     totalCount: number
   }
   bodies: Body[]
-}
-
-const getUseRuntimeConfig = () => {
-  return process.env.NEXT_PUBLIC_API_URL
 }
 
 const fetchBodies = async (token: string, term: string) => {
@@ -77,23 +61,13 @@ const fetchBodies = async (token: string, term: string) => {
   return camelcaseKeys(data, { deep: true })
 }
 
-const fetchPartnerAttributes = async (token: string) => {
-  const url = getUseRuntimeConfig()
-  const response = await fetch(`${url}/v2/partner/attributes`, {
-    headers: { Authorization: token }
-  })
-  if (!response.ok) {
-    throw new Error('Failed to fetch partner attributes')
-  }
-  const data = await response.json()
-  return camelcaseKeys(data, { deep: true })
-}
-
 const DashboardPage: NextPageWithLayout = () => {
   const router = useRouter()
   const [term, setTerm] = useState('1')
   const [searchText, setSearchText] = useState('')
-  const [token, setToken] = useState<string>('')
+  const { user } = useAuthContext()
+
+  const token = user?.token
 
   useEffect(() => {
     const restoreState = () => {
@@ -101,30 +75,13 @@ const DashboardPage: NextPageWithLayout = () => {
       setTerm(storedState.dateValue || '1')
       setSearchText(storedState.searchText || '')
     }
-
     restoreState()
-
-    // Get authentication token
-    Auth.currentAuthenticatedUser()
-      .then((user) => setToken(user.signInUserSession.accessToken.jwtToken))
-      .catch(() => router.push('/error'))
   }, [router])
 
   // Query for bodies data
   const { data: bodiesData, isLoading: isBodiesLoading } = useQuery<BodiesInfo, Error>({
     queryKey: ['bodies', { token, term }],
-    queryFn: () => fetchBodies(token, term),
-    enabled: !!token,
-    retry: false
-  })
-
-  // Query for partner attributes
-  const { data: partnerAttributes, isLoading: isPartnerLoading } = useQuery<
-    PartnerAttributes,
-    Error
-  >({
-    queryKey: ['partnerAttributes', token],
-    queryFn: () => fetchPartnerAttributes(token),
+    queryFn: () => fetchBodies(token as string, term),
     enabled: !!token,
     retry: false
   })
@@ -141,11 +98,10 @@ const DashboardPage: NextPageWithLayout = () => {
     return bodiesData.bodies
   }, [bodiesData, searchText])
 
-  const isLoading = isBodiesLoading || isPartnerLoading
+  const isLoading = isBodiesLoading
 
   return (
     <div className='wrapper'>
-      {/* <DashboardHeader /> */}
       <div className='content-wrapper'>
         <section className='content'>
           <div className='content-header'>
@@ -239,7 +195,6 @@ const DashboardPage: NextPageWithLayout = () => {
           </div>
         </section>
       </div>
-      <MainSideBar partnerAttributes={partnerAttributes} />
     </div>
   )
 }

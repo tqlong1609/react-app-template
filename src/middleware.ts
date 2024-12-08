@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const COOKIE_KEYS = {
-  TOKEN: 'ns-sdm-token',
-  AUTHORIZATION: 'Authorization'
-}
-
 const protectedRoutes = ['/member']
 const publicRoutes = ['/guest']
 

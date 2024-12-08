@@ -1,0 +1,30 @@
+[
+  {
+    "range": {
+      "min": 0,
+      "max": 65
+    },
+    "text": "good"
+  },
+  {
+    "range": {
+      "min": 66,
+      "max": 75
+    },
+    "text": "very-good"
+  },
+  {
+    "range": {
+      "min": 76,
+      "max": 89
+    },
+    "text": "great"
+  },
+  {
+    "range": {
+      "min": 90,
+      "max": 100
+    },
+    "text": "excellent"
+  }
+]

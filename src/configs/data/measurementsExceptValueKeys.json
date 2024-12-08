@@ -1,0 +1,26 @@
+{
+  "male": [
+    "chestBustCircumTape",
+    "upperArmCircumRight",
+    "narrowWaistTape",
+    "seatCircumTape",
+    "thighCircumRight",
+    "crotchHeight"
+  ],
+  "female": [
+    "bustTopCircumTape",
+    "upperArmCircumRight",
+    "narrowWaistTape",
+    "seatCircumTape",
+    "thighCircumRight",
+    "crotchHeight"
+  ],
+  "unknown": [
+    "bustTopCircumTape",
+    "upperArmCircumRight",
+    "narrowWaistTape",
+    "seatCircumTape",
+    "thighCircumRight",
+    "crotchHeight"
+  ]
+}

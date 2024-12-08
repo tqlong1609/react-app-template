@@ -1,0 +1,17 @@
+@import '@/assets/variables';
+
+.title {
+  text-decoration: none;
+  border-bottom: solid 2px $black;
+  width: 255px;
+}
+
+.button {
+  width: 87px;
+  margin-left: auto;
+}
+
+.card {
+  height: 159px;
+  margin-bottom: 20px;
+}
