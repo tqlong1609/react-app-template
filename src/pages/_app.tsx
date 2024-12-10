@@ -26,6 +26,7 @@ export default function MyApp({ Component, pageProps }: any) {
   if (typeof window !== 'undefined') {
     if (window.location.pathname === '/') {
       window.location.pathname = '/member/dashboard'
+      return <></>
     }
   }
 

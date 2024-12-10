@@ -1,0 +1,41 @@
+@import "@/assets/variables";
+@import "bootstrap/scss/mixins";
+
+.tabMenuWrapper {
+  margin-bottom: 20px;
+  border-bottom: solid 1px $gray-200;
+  box-shadow: $box-shadow;
+}
+.textWrap {
+  // max-width: $wrapper-max-width;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  font-size: $text-size-5;
+  text-align: center;
+  color: $gray-500;
+  padding: 10px 10px;
+}
+.menu {
+  width: 20%;
+  padding: 5px 0;
+}
+.isActiveMenu {
+  color: $white;
+  background-color: $diagnosis-color;
+  font-weight: bold;
+  border-radius: $radius-rounded;
+}
+.explanation {
+  margin-bottom: 15px;
+  margin-right: 15px;
+  font-size: $text-size-5;
+  text-align: right;
+  color: $diagnosis-color-dark;
+}
+
+@include media-breakpoint-up(lg) {
+  .modalInner {
+    max-width: 700px;
+  }
+}

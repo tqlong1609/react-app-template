@@ -3,18 +3,15 @@ import { FC } from 'react'
 import { FrameAnalysis } from '@/commons/measurements.types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import styles from './DiagnosisCard.module.scss'
 
 interface DiagnosisCardProps {
   frameAnalysis: FrameAnalysis
+  bodyId: string
 }
 
-const DiagnosisCard: FC<DiagnosisCardProps> = ({ frameAnalysis }) => {
-  const router = useRouter()
-  const { bodyId } = router.query
-
+const DiagnosisCard: FC<DiagnosisCardProps> = ({ frameAnalysis, bodyId }) => {
   return (
     <div className={`card ${styles.card}`}>
       <div className='card-body'>
@@ -27,12 +24,16 @@ const DiagnosisCard: FC<DiagnosisCardProps> = ({ frameAnalysis }) => {
                   className={styles.image}
                   src={`/img/detail/diagnostic/${frameAnalysis.frame}.svg`}
                   alt='Frame Analysis'
-                  layout='fill'
                   objectFit='contain'
+                  width={142}
+                  height={108}
                 />
               </div>
-              <Link href={`/member/bodies/${bodyId}/diagnosis`}>
-                <a className='btn btn-primary flex-shrink-0'>詳細</a>
+              <Link
+                href={`/member/bodies/${bodyId}/diagnosis`}
+                className='btn btn-primary flex-shrink-0'
+              >
+                詳細
               </Link>
             </div>
           ) : (
