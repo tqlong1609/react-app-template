@@ -1,0 +1,42 @@
+# version: '3'
+
+# services:
+#   app:
+#     build: .
+#     ports:
+#       - "3000:3000"
+#       - "3003:3003"
+#     volumes:
+#       - ".:/app"
+#     tty: true
+#     environment:
+#       - NEXT_PUBLIC_MRB_NODE_ENV=development
+#       - NEXT_PUBLIC_API_URL=https://development.hbs.symbol-develop.xyz/
+#       - NEXT_PUBLIC_COGNITO_USER_POOL_ID=ap-northeast-1_FQHSJeRAP
+#       - NEXT_PUBLIC_COGNITO_USER_POOL_WEB_CLIENT_ID=3s2v3d1uan97j6r68n203t3aud
+#       - NEXT_PUBLIC_COGNITO_OAUTH_DOMAIN=auth.dev.symbolhub.jp
+#       - NEXT_PUBLIC_COGNITO_REDIRECT_SIGNIN=http://localhost:3000/member/home/
+#       - NEXT_PUBLIC_COGNITO_REDIRECT_SIGNOUT=http://localhost:3000/member/home/
+#       - NEXT_PUBLIC_MSC_IMAGE_URL=mysizecloud-development.s3.ap-northeast-1.amazonaws.com
+
+version: '3.8'
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_MRB_NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=https://development.hbs.symbol-develop.xyz
+      - NEXT_PUBLIC_COGNITO_USER_POOL_ID=ap-northeast-1_FQHSJeRAP
+      - NEXT_PUBLIC_COGNITO_USER_POOL_WEB_CLIENT_ID=3s2v3d1uan97j6r68n203t3aud
+      - NEXT_PUBLIC_COGNITO_OAUTH_DOMAIN=auth.dev.symbolhub.jp
+      - NEXT_PUBLIC_COGNITO_REDIRECT_SIGNIN=http://localhost:3000/member/home
+      - NEXT_PUBLIC_COGNITO_REDIRECT_SIGNOUT=http://localhost:3000/member/home
+      - NEXT_PUBLIC_MSC_IMAGE_URL=mysizecloud-development.s3.ap-northeast-1.amazonaws.com
+    volumes:
+      - .:/app # Mount toàn bộ thư mục để hỗ trợ hot-reloading
+      - /app/node_modules # Tránh ghi đè node_modules trong container
+    command: [ "npm", "run", "dev" ]
