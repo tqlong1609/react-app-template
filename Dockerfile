@@ -1,20 +1,20 @@
-# Sử dụng Node.js phiên bản Alpine để giảm dung lượng
+# Alpine版のNode.jsを使用してサイズを削減する
 FROM node:18-alpine
 
-# Thiết lập thư mục làm việc trong container
+# コンテナ内の作業ディレクトリを設定
 WORKDIR /app
 
-# Sao chép file package.json và package-lock.json
+# package.jsonとpackage-lock.jsonファイルをコピー
 COPY package*.json ./
 
-# Cài đặt dependencies
+# 依存関係をインストール
 RUN npm install
 
-# Sao chép toàn bộ mã nguồn vào container
+# すべてのソースコードをコンテナにコピー
 COPY . .
 
-# Mở cổng 3000
+# ポート3000を公開
 EXPOSE 3000
 
-# Cấu hình Next.js chạy ở chế độ development
+# Next.jsを開発モードで実行するよう設定
 CMD ["npm", "run", "dev"]
