@@ -7,10 +7,6 @@ import { AuthConsumer } from '@/providers/auth'
 import 'admin-lte/plugins/fontawesome-free/css/all.min.css'
 import Head from 'next/head'
 
-const SplashScreen = () => (
-  <div className='h-screen flex items-center justify-center'>Loading Splash Screen</div>
-)
-
 export default function MyApp({ Component, pageProps }: any) {
   const getLayout = Component.getLayout ?? ((page: any) => page)
   const isLoading = useRouteLoader()
@@ -44,9 +40,7 @@ export default function MyApp({ Component, pageProps }: any) {
         <Providers>
           {isLoading && <Loader />}
           <AuthConsumer>
-            {(auth) =>
-              auth.isLoading ? <SplashScreen /> : getLayout(<Component {...pageProps} />)
-            }
+            {(auth) => (auth.isLoading ? <Loader /> : getLayout(<Component {...pageProps} />))}
           </AuthConsumer>
         </Providers>
         <BootstrapClient />

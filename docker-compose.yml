@@ -5,15 +5,15 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3001"
     environment:
       - NEXT_PUBLIC_MRB_NODE_ENV=development
       - NEXT_PUBLIC_API_URL=https://development.hbs.symbol-develop.xyz
-      - NEXT_PUBLIC_COGNITO_USER_POOL_ID=ap-northeast-1_FQHSJeRAP
-      - NEXT_PUBLIC_COGNITO_USER_POOL_WEB_CLIENT_ID=3s2v3d1uan97j6r68n203t3aud
+      - NEXT_PUBLIC_COGNITO_USER_POOL_ID=ap-northeast-1_KXEQDxgjd
+      - NEXT_PUBLIC_COGNITO_USER_POOL_WEB_CLIENT_ID=2gmu1i5mvhujopsc0k420ba8h5
       - NEXT_PUBLIC_COGNITO_OAUTH_DOMAIN=auth.dev.symbolhub.jp
-      - NEXT_PUBLIC_COGNITO_REDIRECT_SIGNIN=http://localhost:3000/member/home
-      - NEXT_PUBLIC_COGNITO_REDIRECT_SIGNOUT=http://localhost:3000/member/home
+      - NEXT_PUBLIC_COGNITO_REDIRECT_SIGNIN=http://localhost:3001/member/dashboard/
+      - NEXT_PUBLIC_COGNITO_REDIRECT_SIGNOUT=http://localhost:3001/member/dashboard/
       - NEXT_PUBLIC_MSC_IMAGE_URL=mysizecloud-development.s3.ap-northeast-1.amazonaws.com
     volumes:
       - .:/app # ホットリロードをサポートするためにディレクトリ全体をマウント

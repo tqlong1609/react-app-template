@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # ポート3000を公開
-EXPOSE 3000
+EXPOSE 3001
 
 # Next.jsを開発モードで実行するよう設定
 CMD ["npm", "run", "dev"]

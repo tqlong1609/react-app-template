@@ -43,7 +43,6 @@ const LoginPage: NextPageWithLayout = () => {
       }
     } catch (err) {
       console.error(err)
-      // TODO: show error
     }
   }
 

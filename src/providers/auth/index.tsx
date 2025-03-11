@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react'
 
 import Auth, { awsAmplifyConfig } from '@/configs/aws-amplify'
@@ -201,10 +200,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       {children}
     </AuthContext.Provider>
   )
-}
-
-AuthProvider.propTypes = {
-  children: PropTypes.node
 }
 
 export const AuthConsumer = AuthContext.Consumer
