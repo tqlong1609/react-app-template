@@ -63,3 +63,20 @@ $hankyu-hanshin-gray-light-dark: #b8b8b8;
 $hankyu-hanshin-disabled-text: #ffffff;
 $hankyu-hanshin-disabled-background: #b8b8b8;
 $hankyu-hanshin-text: #2b2b2b;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 820px,
+  lg: 1024px,
+  xl: 1200px,
+  xxl: 1900px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1610px
+);
