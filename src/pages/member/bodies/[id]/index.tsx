@@ -146,13 +146,6 @@ const MemberBodiesPage: NextPageWithLayout = () => {
     router.push(`/member/bodies/${value}`)
   }
 
-  const handleToggleMeasurement = async (isActive: boolean) => {
-    if (!isActive || fetchAndProcessBodyImages.isPending) {
-      return
-    }
-    fetchAndProcessBodyImages.mutate()
-  }
-
   const options =
     bodies?.map((body) => ({
       id: body.id,
@@ -257,7 +250,6 @@ const MemberBodiesPage: NextPageWithLayout = () => {
                         pending={pendingImages}
                         sex={body.sex}
                         imagesError={!!imagesError}
-                        onToggleMeasurement={handleToggleMeasurement}
                         bodyId={routeBodyId}
                       />
                     </div>
