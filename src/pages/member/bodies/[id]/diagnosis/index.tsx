@@ -3,8 +3,10 @@ import { useMemo, useState } from 'react'
 import { useFetchBody } from '@/api-hooks/useQueryBody'
 import { BodyDetail } from '@/commons/measurements.types'
 import { NextPageWithLayout } from '@/commons/types'
+import usePartnerAttributes from '@/hooks/usePartnerAttributes'
 import { MainLayout } from '@/layouts/mainLayout'
 import { useAuthContext } from '@/providers/auth'
+import { useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { EffectFade } from 'swiper'
@@ -55,8 +57,10 @@ const modalImagePaths = {
 
 const DiagnosisPage: NextPageWithLayout = () => {
   const { user } = useAuthContext()
-
   const token = user?.token as string
+  const { data: partnerAttributes } = usePartnerAttributes(token)
+
+  // TODO: check permission
 
   const router = useRouter()
   const bodyId = router.query.id as string

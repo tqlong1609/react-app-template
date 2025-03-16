@@ -2,50 +2,24 @@ import { FC } from 'react'
 
 import logoHeader from '@/assets/img/header/logo-large.svg'
 import logoSmall from '@/assets/img/header/logo-small.png'
-import { getUseRuntimeConfig } from '@/configs/env'
 import { ROUTE_PATHS } from '@/configs/router'
+import usePartnerAttributes from '@/hooks/usePartnerAttributes'
 import { useAuthContext } from '@/providers/auth'
-import { useQuery } from '@tanstack/react-query'
-import camelcaseKeys from 'camelcase-keys'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import styles from './MainSideBar.module.scss'
 
-type PartnerAttributes = {
-  id: string
-  logoUrl: string
-  name: string
-}
-
 interface MainSideBarProps {}
 
-const fetchPartnerAttributes = async (token: string) => {
-  const url = getUseRuntimeConfig()
-  const response = await fetch(`${url}/v2/partner/attributes`, {
-    headers: { Authorization: token }
-  })
-  if (!response.ok) {
-    throw new Error('Failed to fetch partner attributes')
-  }
-  const data = await response.json()
-  return camelcaseKeys(data, { deep: true })
-}
-
 const MainSideBar: FC<MainSideBarProps> = () => {
+  const router = useRouter()
+
   const { user, signOut } = useAuthContext()
   const token = user?.token
 
-  const router = useRouter()
-
-  // Query for partner attributes
-  const { data: partnerAttributes } = useQuery<PartnerAttributes, Error>({
-    queryKey: ['partnerAttributes', token],
-    queryFn: () => fetchPartnerAttributes(token as string),
-    enabled: !!token,
-    retry: false
-  })
+  const { data: partnerAttributes } = usePartnerAttributes(token)
 
   const onSignOut = async () => {
     try {
