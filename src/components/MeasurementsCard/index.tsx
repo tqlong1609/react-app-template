@@ -3,9 +3,9 @@ import React, { useMemo } from 'react'
 import { Measurements, Sex } from '@/commons/measurements.types'
 import measurementsExceptValueTypeKeys from '@/configs/data/measurementsExceptValueKeys.json'
 import measurementsJPNameMapping from '@/configs/data/measurementsJPNameMapping.json'
+import { useResponsive } from '@/hooks/useResponsive'
 import { getMeasurementValue } from '@/utils/measurements'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import styles from './styles.module.scss'
 
@@ -33,7 +33,7 @@ interface Props {
 }
 
 const MeasurementCard: React.FC<Props> = ({ measurements, sex, bodyId }) => {
-  const router = useRouter()
+  const { isMobile } = useResponsive()
 
   const measurementsExceptValue: Measurement[] = useMemo(() => {
     return measurementsExceptValueTypeKeys[sex].map((key: string) => ({
@@ -72,7 +72,7 @@ const MeasurementCard: React.FC<Props> = ({ measurements, sex, bodyId }) => {
               </div>
             ))}
           </div>
-          <div className={`row ${styles.footer}`}>
+          <div className={`row ${isMobile ? styles.footer_mobile : styles.footer}`}>
             <div className='col-12'>
               <div className='text-right'>
                 {bodyId && (

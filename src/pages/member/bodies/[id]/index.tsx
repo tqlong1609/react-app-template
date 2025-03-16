@@ -167,7 +167,7 @@ const MemberBodiesPage: NextPageWithLayout = () => {
             <div className='container-fluid'>
               {options && (
                 <div className='row mb-3'>
-                  <div className='col-6'>
+                  <div className='col-12 col-md-6'>
                     <select
                       value={routeBodyId}
                       className='form-control'
@@ -199,7 +199,9 @@ const MemberBodiesPage: NextPageWithLayout = () => {
                 <div className='col-lg-8'>
                   {isHankyuHanshinUser && (
                     <div className='card'>
-                      <div className={`d-flex justify-content-between ${styles.cardBodyWrap}`}>
+                      <div
+                        className={`d-flex justify-content-between flex-wrap ${styles.cardBodyWrap} `}
+                      >
                         <div>
                           <h2 className='card-title flex-grow-1'>
                             {HANKYU_HANSHIN_SUB_TITLE}
@@ -207,7 +209,7 @@ const MemberBodiesPage: NextPageWithLayout = () => {
                             {HANKYU_HANSHIN_TITLE}
                           </h2>
                         </div>
-                        <div className='flex-shrink-1'>
+                        <div className='flex-shrink-1 mt-2 mt-md-0'>
                           {body?.frameAnalysis ? (
                             body.sex === 'unknown' ? (
                               <div
@@ -257,7 +259,7 @@ const MemberBodiesPage: NextPageWithLayout = () => {
 
                   {isOnwardUser && (
                     <div className='card'>
-                      <div className='card-body d-flex justify-content-between'>
+                      <div className='card-body d-flex justify-content-between flex-wrap '>
                         <h2 className='card-title mb-2 flex-grow-1'>
                           {customOnwardItemsJson.title}
                         </h2>
@@ -277,7 +279,7 @@ const MemberBodiesPage: NextPageWithLayout = () => {
 
                   {isOnwardPersonalStyleUser && (
                     <div className='card'>
-                      <div className='card-body d-flex justify-content-between'>
+                      <div className='card-body d-flex justify-content-between flex-wrap'>
                         <h2 className='card-title mb-2 flex-grow-1'>KASHIYAMA 3D骨格診断</h2>
                         {body?.frameAnalysis ? (
                           <Link
