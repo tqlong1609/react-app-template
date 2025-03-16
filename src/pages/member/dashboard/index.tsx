@@ -35,32 +35,6 @@ type BodiesInfo = {
   bodies: Body[]
 }
 
-const fetchBodies = async (token: string, term: string) => {
-  const url = getUseRuntimeConfig()
-  const fromAt =
-    term === '1'
-      ? startOfDay(new Date()).toISOString()
-      : subDays(new Date(), Number(term)).toISOString()
-
-  const toAt = new Date().toISOString()
-  const queryParams = new URLSearchParams({
-    page: '1',
-    per_page: '999',
-    order: 'new',
-    from_at: fromAt,
-    to_at: toAt
-  }).toString()
-  const response = await fetch(`${url}/v2/partner/bodies?${queryParams}`, {
-    headers: { Authorization: token },
-    method: 'GET'
-  })
-  if (!response.ok) {
-    throw new Error('Failed to fetch bodies')
-  }
-  const data = await response.json()
-  return camelcaseKeys(data, { deep: true })
-}
-
 const DashboardPage: NextPageWithLayout = () => {
   const router = useRouter()
   const [term, setTerm] = useState('1')
@@ -113,7 +87,7 @@ const DashboardPage: NextPageWithLayout = () => {
                 <div className='card'>
                   <div className='card-header'>
                     <div className='row justify-content-between'>
-                      <div className='col-3'>
+                      <div className='col-12 col-md-6 col-lg-3 mb-2 mb-md-0'>
                         <select
                           value={term}
                           onChange={(e) => setTerm(e.target.value)}
@@ -127,7 +101,7 @@ const DashboardPage: NextPageWithLayout = () => {
                           <option value='365'>過去365日間</option>
                         </select>
                       </div>
-                      <div className='col-6'>
+                      <div className='col-12 col-md-6 col-lg-6 mb-2 mb-md-0'>
                         <div className='input-group'>
                           <div className='input-group-prepend'>
                             <span className='input-group-text'>
@@ -197,6 +171,32 @@ const DashboardPage: NextPageWithLayout = () => {
       </div>
     </div>
   )
+}
+
+const fetchBodies = async (token: string, term: string) => {
+  const url = getUseRuntimeConfig()
+  const fromAt =
+    term === '1'
+      ? startOfDay(new Date()).toISOString()
+      : subDays(new Date(), Number(term)).toISOString()
+
+  const toAt = new Date().toISOString()
+  const queryParams = new URLSearchParams({
+    page: '1',
+    per_page: '999',
+    order: 'new',
+    from_at: fromAt,
+    to_at: toAt
+  }).toString()
+  const response = await fetch(`${url}/v2/partner/bodies?${queryParams}`, {
+    headers: { Authorization: token },
+    method: 'GET'
+  })
+  if (!response.ok) {
+    throw new Error('Failed to fetch bodies')
+  }
+  const data = await response.json()
+  return camelcaseKeys(data, { deep: true })
 }
 
 DashboardPage.getLayout = (page) => <MainLayout>{page}</MainLayout>

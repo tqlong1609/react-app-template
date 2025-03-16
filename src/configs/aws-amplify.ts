@@ -1,13 +1,12 @@
 import { Amplify, Auth } from 'aws-amplify'
 
-// TODO: move to env / docker compose
 const runtimeConfig = {
-  MBD_NODE_ENV: 'development',
-  API_URL: 'https://development.hbs.symbol-develop.xyz',
-  COGNITO_USER_POOL_ID: 'ap-northeast-1_KXEQDxgjd',
-  COGNITO_USER_POOL_WEB_CLIENT_ID: '2gmu1i5mvhujopsc0k420ba8h5',
-  COGNITO_REDIRECT_SIGNIN: 'http://localhost:3000/member/dashboard/',
-  COGNITO_REDIRECT_SIGNOUT: 'http://localhost:3000/member/dashboard/'
+  MBD_NODE_ENV: process.env.NEXT_PUBLIC_MRB_NODE_ENV,
+  API_URL: process.env.NEXT_PUBLIC_API_URL,
+  COGNITO_USER_POOL_ID: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID,
+  COGNITO_USER_POOL_WEB_CLIENT_ID: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_WEB_CLIENT_ID,
+  COGNITO_REDIRECT_SIGNIN: process.env.NEXT_PUBLIC_COGNITO_REDIRECT_SIGNIN,
+  COGNITO_REDIRECT_SIGNOUT: process.env.NEXT_PUBLIC_COGNITO_REDIRECT_SIGNOUT
 }
 
 export const awsAmplifyConfig = () => {

@@ -5,18 +5,7 @@ import useRouteLoader from '@/hooks/useRouteLoader'
 import Providers from '@/providers'
 import { AuthConsumer } from '@/providers/auth'
 import 'admin-lte/plugins/fontawesome-free/css/all.min.css'
-import { Noto_Sans_JP } from 'next/font/google'
 import Head from 'next/head'
-
-const SplashScreen = () => (
-  <div className='h-screen flex items-center justify-center'>Loading Splash Screen</div>
-)
-
-const notoSansJP = Noto_Sans_JP({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-noto-sans-jp'
-})
 
 export default function MyApp({ Component, pageProps }: any) {
   const getLayout = Component.getLayout ?? ((page: any) => page)
@@ -39,14 +28,20 @@ export default function MyApp({ Component, pageProps }: any) {
           rel='stylesheet'
           href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
         />
+        <link
+          rel='stylesheet'
+          href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'
+        ></link>
+        <link
+          rel='stylesheet'
+          href='https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap'
+        ></link>
       </Head>
-      <div className={notoSansJP.className}>
+      <div>
         <Providers>
           {isLoading && <Loader />}
           <AuthConsumer>
-            {(auth) =>
-              auth.isLoading ? <SplashScreen /> : getLayout(<Component {...pageProps} />)
-            }
+            {(auth) => (auth.isLoading ? <Loader /> : getLayout(<Component {...pageProps} />))}
           </AuthConsumer>
         </Providers>
         <BootstrapClient />

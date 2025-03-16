@@ -3,11 +3,13 @@ import { FC } from 'react'
 import logoHeader from '@/assets/img/header/logo-large.svg'
 import logoSmall from '@/assets/img/header/logo-small.png'
 import { getUseRuntimeConfig } from '@/configs/env'
+import { ROUTE_PATHS } from '@/configs/router'
 import { useAuthContext } from '@/providers/auth'
 import { useQuery } from '@tanstack/react-query'
 import camelcaseKeys from 'camelcase-keys'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import styles from './MainSideBar.module.scss'
 
@@ -32,8 +34,10 @@ const fetchPartnerAttributes = async (token: string) => {
 }
 
 const MainSideBar: FC<MainSideBarProps> = () => {
-  const { user } = useAuthContext()
+  const { user, signOut } = useAuthContext()
   const token = user?.token
+
+  const router = useRouter()
 
   // Query for partner attributes
   const { data: partnerAttributes } = useQuery<PartnerAttributes, Error>({
@@ -43,8 +47,12 @@ const MainSideBar: FC<MainSideBarProps> = () => {
     retry: false
   })
 
-  const signOut = async () => {
+  const onSignOut = async () => {
     try {
+      await signOut()
+      router.replace({
+        pathname: ROUTE_PATHS.SIGNIN
+      })
     } catch (error: any) {
       if (error.code === 'NetworkError') {
         window.alert('ネットワークエラーです。ネットワークの接続をご確認ください')
@@ -118,12 +126,13 @@ const MainSideBar: FC<MainSideBarProps> = () => {
       </div>
 
       <div className={styles.sidebarBottom}>
-        <nav className='mt-2' onClick={signOut}>
+        <nav className='mt-2' onClick={onSignOut}>
           <ul className='nav nav-pills nav-sidebar' role='menu'>
             <li
               className='nav-item'
               style={{
-                width: '100%'
+                width: '100%',
+                cursor: 'pointer'
               }}
             >
               <div className='nav-link'>
