@@ -1,12 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { useFetchBody } from '@/api-hooks/useQueryBody'
 import { BodyDetail } from '@/commons/measurements.types'
 import { NextPageWithLayout } from '@/commons/types'
+import ProtectedRoute from '@/components/ProtectedRoute'
 import usePartnerAttributes from '@/hooks/usePartnerAttributes'
 import { MainLayout } from '@/layouts/mainLayout'
 import { useAuthContext } from '@/providers/auth'
-import { useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { EffectFade } from 'swiper'
@@ -58,9 +58,7 @@ const modalImagePaths = {
 const DiagnosisPage: NextPageWithLayout = () => {
   const { user } = useAuthContext()
   const token = user?.token as string
-  const { data: partnerAttributes } = usePartnerAttributes(token)
-
-  // TODO: check permission
+  const { data: partnerAttributes, error: partnerAttributesError } = usePartnerAttributes(token)
 
   const router = useRouter()
   const bodyId = router.query.id as string
@@ -68,8 +66,6 @@ const DiagnosisPage: NextPageWithLayout = () => {
   const [indexSlide, setIndexSlide] = useState<number>(0)
 
   const { data: bodyDetail, error: bodyError } = useFetchBody(bodyId, token)
-
-  const sex = bodyDetail ? getFixedGenderFromBodyType(bodyDetail.baseBodyType) : null
 
   const slideImagePaths = useMemo(() => {
     return bodyDetail
@@ -79,6 +75,19 @@ const DiagnosisPage: NextPageWithLayout = () => {
         }
       : null
   }, [bodyDetail])
+
+  useEffect(() => {
+    if (partnerAttributesError || bodyError) {
+      // const statusMessage = partnerAttributesError?.message || bodyError?.message;
+      router.push('/error')
+    }
+  }, [partnerAttributesError, bodyError, router])
+
+  if (!bodyDetail || !partnerAttributes) {
+    return <div>Loading...</div>
+  }
+
+  const sex = bodyDetail ? getFixedGenderFromBodyType(bodyDetail.baseBodyType) : null
 
   return (
     <div className='wrapper'>
@@ -206,4 +215,6 @@ const getFixedGenderFromBodyType = (bodyType?: string) => {
 
 DiagnosisPage.getLayout = (page) => <MainLayout>{page}</MainLayout>
 
-export default DiagnosisPage
+const DiagnosisPageWrapper = () => <ProtectedRoute component={DiagnosisPage} />
+
+export default DiagnosisPageWrapper

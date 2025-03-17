@@ -1,10 +1,11 @@
 import { AuthProvider } from './auth'
+import ErrorBoundaryWrapper from './ErrorBoundary'
 import { MenuProvider } from './MenuProvider'
 import ReactQueryProvider from './ReactQueryProvider'
 
 export default function Providers(props: any) {
   return (
-    <Compose components={[ReactQueryProvider, MenuProvider, AuthProvider]}>
+    <Compose components={[ReactQueryProvider, MenuProvider, ErrorBoundaryWrapper, AuthProvider]}>
       {props.children}
     </Compose>
   )

@@ -1,3 +1,4 @@
+
 import '@/assets/style.scss'
 import BootstrapClient from '@/components/BootstrapClient'
 import Loader from '@/components/Loader'
